@@ -27,6 +27,34 @@
           </button>
         </div>
       </div>
+      <button (click)="showModal()" class="btn btn-primary btn-message">
+        <span>Tin nhắn</span>
+      </button>
+      <nz-modal
+        [(nzVisible)]="isVisible"
+        nzTitle="Nhắn gửi yêu thương"
+        (nzOnCancel)="handleCancel()"
+        (nzOnOk)="handleOk()"
+      >
+        <ng-container *nzModalContent>
+          <div class="content-message" *ngFor="let item of listMessage">
+            <div class="time-message text-center">{{ item.time }}</div>
+            <div class="detail-message mt-2 mb-2">{{ item.message }}</div>
+          </div>
+          <div class="send-message d-flex align-items-center p-3 ps-0 pe-0">
+            <textarea rows="4" nz-input [(ngModel)]="addMessage"></textarea>
+            <button
+              nz-button
+              nzType="primary"
+              class="ms-3"
+              (click)="sendMessage()"
+            >
+              Gửi
+            </button>
+          </div>
+        </ng-container>
+      </nz-modal>
+
       <div class="emiu">
         <img src="../assets/emiu.jpg" alt="" srcset="" />
       </div>
@@ -44,7 +72,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of listHistory" class="table-success">
-                <td>{{ item.money }}</td>
+                <td>{{ item.money | number: "1.0-0" }}</td>
                 <td>{{ item.time }}</td>
               </tr>
             </tbody>

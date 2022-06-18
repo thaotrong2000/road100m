@@ -129,3 +129,56 @@ thead {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+.btn-message {
+  width: fit-content;
+  margin-top: 20px;
+}
+
+::ng-deep .ant-modal-footer {
+  display: none;
+}
+
+.content-message {
+}
+
+.time-message {
+  font-size: 12px;
+}
+
+.detail-message {
+  background-color: #e66d7c;
+  font-size: 16px;
+  width: fit-content;
+  max-width: 100%;
+  padding: 10px;
+  border-radius: 18px;
+  color: #fff;
+}
+
+.send-message {
+  position: sticky;
+  bottom: 0;
+  background-color: #fff;
+}
+
+textarea {
+  background-color: #f0f2f5;
+  resize: none;
+  border: none;
+  border-radius: 10px;
+}
+
+/* ::ng-deep .ant-modal-content {
+  max-height: calc(100vh - 200px);
+} */
+
+::ng-deep .ant-modal-header {
+  position: sticky;
+  top: 0;
+}
+
+::ng-deep .ant-modal {
+  top: 0px;
+  padding-bottom: 0;
+}

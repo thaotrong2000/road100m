@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { HistoryAddMoney } from './model/app-model';
+import { HistoryAddMoney, Message } from './model/app-model';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +12,9 @@ export class AppComponent implements OnInit {
   totalMoney!: number;
   addMoney!: number;
   listHistory!: HistoryAddMoney[];
+  isVisible = false;
+  addMessage = '';
+  listMessage!: Message[];
 
   constructor(private http: HttpClient) {}
 
@@ -36,6 +39,14 @@ export class AppComponent implements OnInit {
         console.log(data);
         this.listHistory = (data as HistoryAddMoney[]).reverse();
       });
+
+    // Get All Messages
+    this.http
+      .get('https://demo-thao.herokuapp.com/api/getAllMessage')
+      .subscribe((data) => {
+        this.listMessage = data as Message[];
+        console.log(this.listMessage);
+      });
   }
 
   addLove() {
@@ -58,5 +69,42 @@ export class AppComponent implements OnInit {
           console.log('error');
         }
       );
+  }
+
+  sendMessage() {
+    if (!this.addMessage) {
+      console.log('error First');
+
+      return;
+    }
+    this.http
+      .post('https://demo-thao.herokuapp.com/api/postMessage', {
+        message: this.addMessage.toString().replace('.', ''),
+        time: new Date().toLocaleString(),
+      })
+      .subscribe(
+        () => {
+          this.getInfor();
+          this.addMessage = '';
+          console.log('ok');
+        },
+        () => {
+          console.log('error');
+        }
+      );
+  }
+
+  showModal(): void {
+    this.isVisible = true;
+  }
+
+  handleOk(): void {
+    console.log('Button ok clicked!');
+    this.isVisible = false;
+  }
+
+  handleCancel(): void {
+    console.log('Button cancel clicked!');
+    this.isVisible = false;
   }
 }
